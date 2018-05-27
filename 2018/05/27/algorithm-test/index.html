@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="XIAOLI的博客">
 <meta property="og:description" content="本片文章罗列了一些算法例子，后续也会不断增加。  随机打乱数组(PHP实现) 小于N的所有质数 反转数组元素(PHP实现) 两个有序序列相同元素 时间复杂度为O(N)的斐波那契数列 约瑟夫环问题 二分查找 查找有序数组中绝对值最小元素的下标 最大子序列和列">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T04:59:23.654Z">
+<meta property="og:updated_time" content="2018-05-27T05:06:54.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP实现的一些算法例子">
 <meta name="twitter:description" content="本片文章罗列了一些算法例子，后续也会不断增加。  随机打乱数组(PHP实现) 小于N的所有质数 反转数组元素(PHP实现) 两个有序序列相同元素 时间复杂度为O(N)的斐波那契数列 约瑟夫环问题 二分查找 查找有序数组中绝对值最小元素的下标 最大子序列和列">
@@ -148,7 +148,7 @@
 
         
         <a href="/2018/05/27/algorithm-test/" class="archive-article-date">
-  	<time datetime="2018-05-27T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-27</time>
+  	<time datetime="2018-05-27T04:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-27</time>
 </a>
         
       </header>
@@ -165,9 +165,9 @@
 <li><a href="#joseph_ring">约瑟夫环问题</a></li>
 <li><a href="#binary_search">二分查找</a></li>
 <li><a href="#get_min_abs_value">查找有序数组中绝对值最小元素的下标</a></li>
-<li><a href="#maxItemSum">最大子序列和列</a><a id="more"></a>
-</li>
+<li><a href="#maxItemSum">最大子序列和列</a></li>
 </ul>
+<a id="more"></a>
 <h2 id="1-随机打乱数组-PHP实现"><a href="#1-随机打乱数组-PHP实现" class="headerlink" title="1. 随机打乱数组(PHP实现)"></a>1. <a name="custom_shuffle">随机打乱数组(PHP实现)</a></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 随机数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $arr</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> mixed</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">custom_shuffle</span><span class="params">($arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $n = count($arr) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt;= $n; ++$i) &#123;</span><br><span class="line">        $rand_pos = mt_rand(<span class="number">0</span>, $n);</span><br><span class="line">        <span class="keyword">if</span> ($rand_pos != $i) &#123;</span><br><span class="line">            $temp = $arr[$i];</span><br><span class="line">            $arr[$i] = $arr[$rand_pos];</span><br><span class="line">            $arr[$rand_pos] = $temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="2-小于N的所有质数"><a href="#2-小于N的所有质数" class="headerlink" title="2. 小于N的所有质数"></a>2. <a name="get_prime">小于N的所有质数</a></h2><blockquote>
 <p>思路：基础情况是2是最小质数。质数是大于等于3的奇数，且不能被所有小于等于自身sqrt开方的质数整除<br>有点绕口，为什么是小于等于sqrt(N)的所有质数？假设能够N不是质数,则N可以表示为：N = x * y。<br>不妨假设x &lt;= y。y = (N/x) &gt;= x；得出 x &lt;= sqrt(N)。</p>
@@ -178,6 +178,7 @@
 </blockquote>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span><span class="params">($arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $left = <span class="number">0</span>;</span><br><span class="line">    $right = count($arr) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ($left &lt; $right) &#123;</span><br><span class="line">        $tmp = $arr[$left];</span><br><span class="line">        $arr[$left++] = $arr[$right];</span><br><span class="line">        $arr[$right--] = $tmp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> $arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="4-两个有序序列相同元素"><a href="#4-两个有序序列相同元素" class="headerlink" title="4. 两个有序序列相同元素"></a>4. <a name="find_common">两个有序序列相同元素</a></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 两个有序数组，求相同元素</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $arr1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $arr2</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> array</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">find_common</span><span class="params">($arr1, $arr2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $i = $j = <span class="number">0</span>;</span><br><span class="line">    $iEnd = count($arr1);</span><br><span class="line">    $jEnd = count($arr2);</span><br><span class="line">    $common = [];</span><br><span class="line">    <span class="keyword">while</span> (($i &lt; $iEnd) &amp;&amp; ($j &lt; $jEnd)) &#123;</span><br><span class="line">        <span class="keyword">if</span> ($arr1[$i] &lt; $arr2[$j]) &#123;</span><br><span class="line">            ++$i;</span><br><span class="line">        &#125; <span class="keyword">elseif</span> ($arr1[$i] &gt; $arr2[$j]) &#123;</span><br><span class="line">            ++$j;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ++$i;</span><br><span class="line">            ++$j;</span><br><span class="line">            $common[] = $arr1[$i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array_unique($common);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-时间复杂度为O-N-的斐波那契数列"><a href="#5-时间复杂度为O-N-的斐波那契数列" class="headerlink" title="5. 时间复杂度为O(N)的斐波那契数列"></a>5. <a name="fibonacci">时间复杂度为O(N)的斐波那契数列</a></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 最简单的解法。但是复杂度是O(2&lt;sup&gt;n&lt;/sup&gt;)</span></span><br></pre></td></tr></table></figure>
 
       
 
@@ -292,8 +293,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2017/12/19/php-regular-preg-match-matching-length-limit/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">PHP 正则preg_match匹配长度限制</div>
+    <a href="/2017/12/20/laravel-54-life-process-and-source-code-analysis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Laravel5.4 生命流程与源码分析</div>
       <i class="icon-circle-right"></i>
     </a>
   
