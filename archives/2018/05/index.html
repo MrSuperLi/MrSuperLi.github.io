@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>XIAOLI的博客</title>
+  <title>Archives: 2018/5 | XIAOLI的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="XIAOLI的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2018/05/index.html">
 <meta property="og:site_name" content="XIAOLI的博客">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -132,56 +132,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-algorithm-test" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/05/27/algorithm-test/" class="archive-article-date">
+  	<time datetime="2018-05-27T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-27</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/27/algorithm-test/">PHP实现的一些算法例子</a>
+      <a class="archive-article-title" href="/2018/05/27/algorithm-test/">PHP实现的一些算法例子</a>
     </h1>
   
 
-        
-        <a href="/2018/05/27/algorithm-test/" class="archive-article-date">
-  	<time datetime="2018-05-27T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本片文章罗列了一些算法例子，后续也会不断增加。</p>
-<ul>
-<li><a href="#custom_shuffle">随机打乱数组(PHP实现)</a></li>
-<li><a href="#get_prime">小于N的所有质数</a></li>
-<li><a href="#reverse">反转数组元素(PHP实现)</a></li>
-<li><a href="#find_common">两个有序序列相同元素</a></li>
-<li><a href="#fibonacci">时间复杂度为O(N)的斐波那契数列</a></li>
-<li><a href="#joseph_ring">约瑟夫环问题</a></li>
-<li><a href="#binary_search">二分查找</a></li>
-<li><a href="#get_min_abs_value">查找有序数组中绝对值最小元素的下标</a></li>
-<li><a href="#maxItemSum">最大子序列和列</a></li>
-</ul>
-<h2 id="1-随机打乱数组-PHP实现"><a href="#1-随机打乱数组-PHP实现" class="headerlink" title="1. 随机打乱数组(PHP实现)"></a>1. <a name="custom_shuffle">随机打乱数组(PHP实现)</a></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 随机数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $arr</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> mixed</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">custom_shuffle</span><span class="params">($arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $n = count($arr) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt;= $n; ++$i) &#123;</span><br><span class="line">        $rand_pos = mt_rand(<span class="number">0</span>, $n);</span><br><span class="line">        <span class="keyword">if</span> ($rand_pos != $i) &#123;</span><br><span class="line">            $temp = $arr[$i];</span><br><span class="line">            $arr[$i] = $arr[$rand_pos];</span><br><span class="line">            $arr[$rand_pos] = $temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-小于N的所有质数"><a href="#2-小于N的所有质数" class="headerlink" title="2. 小于N的所有质数"></a>2. <a name="get_prime">小于N的所有质数</a></h2><blockquote>
-<p>思路：基础情况是2是最小质数。质数是大于等于3的奇数，且不能被所有小于等于自身sqrt开方的质数整除<br>有点绕口，为什么是小于等于sqrt(N)的所有质数？假设能够N不是质数,则N可以表示为：N = x * y。<br>不妨假设x &lt;= y。y = (N/x) &gt;= x；得出 x &lt;= sqrt(N)。</p>
-</blockquote>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 请求小于$n的所有质数</span></span><br><span class="line"><span class="comment"> * 不能被任何根号N小的参数整除就是质数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_prime</span><span class="params">($n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $prime = [<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> ($n &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">3</span>;$i&lt;$n;$i+=<span class="number">2</span>)&#123;</span><br><span class="line">        $j = intval(sqrt($i));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span>($prime <span class="keyword">as</span> $p)&#123;</span><br><span class="line">            <span class="keyword">if</span> ($p &lt;= $j) &#123;</span><br><span class="line">                <span class="keyword">if</span> ( $i % $p == <span class="number">0</span> ) &#123;</span><br><span class="line">                    <span class="keyword">break</span> <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 质数</span></span><br><span class="line">                $prime[] = $i;</span><br><span class="line">                <span class="keyword">break</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $prime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-反转数组元素-PHP实现"><a href="#3-反转数组元素-PHP实现" class="headerlink" title="3. 反转数组元素(PHP实现)"></a>3. <a name="reverse">反转数组元素(PHP实现)</a></h2><blockquote>
-<p>思路：首位交换</p>
-</blockquote>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span><span class="params">($arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $left = <span class="number">0</span>;</span><br><span class="line">    $right = count($arr) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ($left &lt; $right) &#123;</span><br><span class="line">        $tmp = $arr[$left];</span><br><span class="line">        $arr[$left++] = $arr[$right];</span><br><span class="line">        $arr[$right--] = $tmp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> $arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4-两个有序序列相同元素"><a href="#4-两个有序序列相同元素" class="headerlink" title="4. 两个有序序列相同元素"></a>4. <a name="find_common">两个有序序列相同元素</a></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 两个有序数组，求相同元素</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $arr1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $arr2</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> array</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">find_common</span><span class="params">($arr1, $arr2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $i = $j = <span class="number">0</span>;</span><br><span class="line">    $iEnd = count($arr1);</span><br><span class="line">    $jEnd = count($arr2);</span><br><span class="line">    $common = [];</span><br><span class="line">    <span class="keyword">while</span> (($i &lt; $iEnd) &amp;&amp; ($j &lt; $jEnd)) &#123;</span><br><span class="line">        <span class="keyword">if</span> ($arr1[$i] &lt; $arr2[$j]) &#123;</span><br><span class="line">            ++$i;</span><br><span class="line">        &#125; <span class="keyword">elseif</span> ($arr1[$i] &gt; $arr2[$j]) &#123;</span><br><span class="line">            ++$j;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ++$i;</span><br><span class="line">            ++$j;</span><br><span class="line">            $common[] = $arr1[$i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array_unique($common);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -197,204 +175,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/27/algorithm-test/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-php-regular-preg-match-matching-length-limit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/19/php-regular-preg-match-matching-length-limit/">PHP 正则preg_match匹配长度限制</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/19/php-regular-preg-match-matching-length-limit/" class="archive-article-date">
-  	<time datetime="2017-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>什么？有长度限制？我怎么没有碰到过？是的，有限制的，总不能无底洞一直运行下去吧！</p>
-<h2 id="故事背景"><a href="#故事背景" class="headerlink" title="故事背景"></a>故事背景</h2><blockquote>
-<p>有一天，发现以前使用正则表达式写的HTML格式转换代码出问题了！压根没有进行格式转换！但是把部分内容(任意内容)删除之后，就可以匹配成功并且正常转换。于是我想这应该是长度限制，导致无法匹配结果。</p>
-</blockquote>
-        
-          <a class="article-more-a" href="/2017/12/19/php-regular-preg-match-matching-length-limit/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/19/php-regular-preg-match-matching-length-limit/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-laravel-54-life-process-and-source-code-analysis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/19/laravel-54-life-process-and-source-code-analysis/">Laravel5.4 生命流程与源码分析</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/19/laravel-54-life-process-and-source-code-analysis/" class="archive-article-date">
-  	<time datetime="2017-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>明白流程不代表精通Laravel。因为还需要把这个流程与实际开发需要融汇贯通：学以致用。比如，如何修改Laravel日志存放目录？Laravel并没有自定义日志目录的配置，需要修改源代码，这就需要了解Laravel的生命流程，明白Laravel是在哪里，什么时候进行日志目录设置。<br>
-        
-          <a class="article-more-a" href="/2017/12/19/laravel-54-life-process-and-source-code-analysis/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Laravel</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/19/laravel-54-life-process-and-source-code-analysis/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
 
 
           </div>
@@ -416,9 +209,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
