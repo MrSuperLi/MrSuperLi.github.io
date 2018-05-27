@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="XIAOLI的博客">
 <meta property="og:description" content="如何设计/优化一个访问量比较大的稳定的web站点。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T06:10:01.007Z">
+<meta property="og:updated_time" content="2018-05-27T06:10:59.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高访问性能与用户体验">
 <meta name="twitter:description" content="如何设计/优化一个访问量比较大的稳定的web站点。">
@@ -157,8 +157,7 @@
       
         <p>如何设计/优化一个访问量比较大的稳定的web站点。</p>
 <a id="more"></a>
-<h3 id="一、-性能"><a href="#一、-性能" class="headerlink" title="一、 性能"></a>一、 性能</h3><ul>
-<li><ol>
+<h3 id="一、-性能"><a href="#一、-性能" class="headerlink" title="一、 性能"></a>一、 性能</h3><ol>
 <li>纵向<ul>
 <li>1.1 动态内容静态化</li>
 <li>1.2 减少不必要请求，使用雪碧图。每次请求都是可能失败的</li>
@@ -169,47 +168,27 @@
 <li>1.7 防盗链接，控制大文件上下载</li>
 </ul>
 </li>
-</ol>
-</li>
-<li><ol start="2">
 <li>横向<ul>
 <li>2.1 分布式集群</li>
 <li>2.2 负载均衡</li>
 </ul>
 </li>
 </ol>
-</li>
-</ul>
 <h3 id="二、用户体验"><a href="#二、用户体验" class="headerlink" title="二、用户体验"></a>二、用户体验</h3><blockquote>
 <p>这一点只是给出自身项目中遇到过的</p>
 </blockquote>
-<ul>
-<li><ol>
+<ol>
 <li>懒加载。不仅是客户端图片的懒加载；而且服务端不要一次性加载一大堆无用的东西，要尽量精简</li>
-</ol>
-</li>
-<li><ol start="2">
 <li>减少http请求。因为每次请求都有可能失败，尽可能一次性解决</li>
-</ol>
-</li>
-<li><ol start="3">
 <li>使用错误重试机制。在测试时候不会有错误情况，但是在用户访问会有各种各样的问题，因此做好错误重试。比如用户登录，这个请求关乎用户留存的，必须使用重试机制</li>
-</ol>
-</li>
-<li><ol start="4">
 <li>如果重试还是不行，就需要上报错误日志了。ELK(ElasticSearch, Logstash, Kibana)搭建实时日志分析平台<ul>
 <li>4.1 客户端请求错误日志</li>
 <li>4.2 客户端JS运行错误日志 window.onerror</li>
 <li>4.3 服务端的错误日志。比如：Laravel的App\Exceptions\Handler::report就可以全局上报</li>
 </ul>
 </li>
-</ol>
-</li>
-<li><ol start="5">
 <li>预警。有了错误日志，就需要对日志汇总并且通过邮箱/微信/短信等方式进行预警</li>
 </ol>
-</li>
-</ul>
 
       
 
