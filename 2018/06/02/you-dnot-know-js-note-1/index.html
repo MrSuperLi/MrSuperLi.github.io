@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>你不知道的Javascript(中卷)读书笔记 | XIAOLI的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. JS的类型转换是与其他语言不一样。 其中有toString,toNumber,toBoolean；并且不同操作符使用不同的类型转换 尽量不使用 == 进行相等判断，使用恒等于 === 进行判断，可以避免以为类型转换导致意外问题。比如2==true的结果是false，原因是true会进行toNumber变为1。  2. Promise与async/await： 设定回调不具有信任性，调用次数过">
+  <meta name="description" content="1. JS的类型转换是与其他语言不一样。 其中有toString,toNumber,toBoolean；并且不同操作符使用不同的类型转换 尽量不使用 == 进行相等判断，使用恒等于 === 进行判断，可以避免以为类型转换导致意外问题。比如2==true的结果是false，原因是true会进行toNumber变为1。">
 <meta name="keywords" content="Javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="你不知道的Javascript(中卷)读书笔记">
 <meta property="og:url" content="http://yoursite.com/2018/06/02/you-dnot-know-js-note-1/index.html">
 <meta property="og:site_name" content="XIAOLI的博客">
-<meta property="og:description" content="1. JS的类型转换是与其他语言不一样。 其中有toString,toNumber,toBoolean；并且不同操作符使用不同的类型转换 尽量不使用 == 进行相等判断，使用恒等于 === 进行判断，可以避免以为类型转换导致意外问题。比如2==true的结果是false，原因是true会进行toNumber变为1。  2. Promise与async/await： 设定回调不具有信任性，调用次数过">
+<meta property="og:description" content="1. JS的类型转换是与其他语言不一样。 其中有toString,toNumber,toBoolean；并且不同操作符使用不同的类型转换 尽量不使用 == 进行相等判断，使用恒等于 === 进行判断，可以避免以为类型转换导致意外问题。比如2==true的结果是false，原因是true会进行toNumber变为1。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-02T07:04:02.079Z">
+<meta property="og:updated_time" content="2018-06-02T07:07:14.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你不知道的Javascript(中卷)读书笔记">
-<meta name="twitter:description" content="1. JS的类型转换是与其他语言不一样。 其中有toString,toNumber,toBoolean；并且不同操作符使用不同的类型转换 尽量不使用 == 进行相等判断，使用恒等于 === 进行判断，可以避免以为类型转换导致意外问题。比如2==true的结果是false，原因是true会进行toNumber变为1。  2. Promise与async/await： 设定回调不具有信任性，调用次数过">
+<meta name="twitter:description" content="1. JS的类型转换是与其他语言不一样。 其中有toString,toNumber,toBoolean；并且不同操作符使用不同的类型转换 尽量不使用 == 进行相等判断，使用恒等于 === 进行判断，可以避免以为类型转换导致意外问题。比如2==true的结果是false，原因是true会进行toNumber变为1。">
   
     <link rel="alternative" href="/atom.xml" title="XIAOLI的博客" type="application/atom+xml">
   
@@ -159,6 +159,7 @@
 <li>其中有toString,toNumber,toBoolean；并且不同操作符使用不同的类型转换</li>
 <li>尽量不使用 == 进行相等判断，使用恒等于 === 进行判断，可以避免以为类型转换导致意外问题。比如<code>2==true</code>的结果是<code>false</code>，原因是<code>true</code>会进行toNumber变为1。</li>
 </ul>
+<a id="more"></a>
 <h2 id="2-Promise与async-await："><a href="#2-Promise与async-await：" class="headerlink" title="2. Promise与async/await："></a>2. Promise与async/await：</h2><ul>
 <li>设定回调不具有信任性，调用次数过多或者过少等。Promise可以解决信任性问题（单决议，不可变）</li>
 <li>具有顺序的回调会导致层级嵌套。Promise的then可以解决</li>
