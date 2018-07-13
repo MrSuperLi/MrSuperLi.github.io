@@ -20,7 +20,10 @@
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB42f8a0dc0b1079432d3250805b276009?method=download&shareKey=7e6093228ebbc67be76cb05316865aba">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB635207aea7c536a6d27b076391658905?method=download&shareKey=111432d0777b5a7c3eb1ef34ec1d9bd2">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB534236ded6c5607034c0d34f103d2385?method=download&shareKey=dc61d7a108c2c4897f87e74d20088b37">
-<meta property="og:updated_time" content="2018-06-02T09:59:57.157Z">
+<meta property="og:image" content="http://yoursite.com/tcp-half-close.png">
+<meta property="og:image" content="http://yoursite.com/tcp-net-stat.png">
+<meta property="og:image" content="http://yoursite.com/tcp-fin-stat.png">
+<meta property="og:updated_time" content="2018-07-08T13:20:55.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络读书笔记">
 <meta name="twitter:description" content="应用层 对数据的具体应用 HTTP/DNS/FTP/NFS/SMTP/POP3/IMAP/SNMP等   表示层 对数据进行格式转换，加解密，解压缩等(没有协议)   会话层 会话管理，控制应用之间的通信，比如访问验证 (没有协议)   传输层 通信双方数据传输。TCP面向连接可靠/顺序/流量控制/全双工/多路复用;UDP非面向连接不可靠，但传输经济   网络层 路由选择合适的链路。IP/OSP">
@@ -178,7 +181,7 @@
 </ul>
 </li>
 <li>网络层<ul>
-<li>路由选择合适的链路。IP/OSPF。IP属于外部网络，SOPF是内部网络(AS-自治系统)</li>
+<li>路由选择合适的链路。IP/OSPF。IP属于外部网络，OSPF是内部网络(AS-自治系统)</li>
 </ul>
 </li>
 <li>数据链路层<ul>
@@ -227,7 +230,7 @@
 <p>广播是以太网(一种局域网)上的传播方式。简单理解就是通过一条总线连接在一起的网络，一台机器发送数据，其他机器都能接收到。机器针对不是发给自己的机器机型丢弃(所以说局域网不安全，可以不丢弃的呀)。以太网使用曼切斯特编码。以太网最大问题就是竞争总线，在传输之前都检测是否被占用，如果被占用需要等待一定时间再次传输。</p>
 </blockquote>
 <h2 id="3-网络层"><a href="#3-网络层" class="headerlink" title="3. 网络层"></a>3. 网络层</h2><blockquote>
-<p>该层的传输通过封装成IP数据报</p>
+<p>  主要的协议有IP协议/ICMP协议/ARP/RARP。该层的传输通过封装成IP数据报。ICMP报文也是使用IP数据报的，但是一般认为同属于网络层。</p>
 </blockquote>
 <h3 id="3-1-常用的3种IP地址"><a href="#3-1-常用的3种IP地址" class="headerlink" title="3.1 常用的3种IP地址"></a>3.1 常用的3种IP地址</h3><p>A类：</p>
 <pre><code>- 网络号1字节，首位0固定，剩余7位。2^7 - 2可用，因为网络号全零表示本网络。恰好全1则是127是本地回环地址。
@@ -283,12 +286,16 @@
 <p>主机或者路由器报告差错情况等。差错报文与询问报文</p>
 </blockquote>
 <ul>
-<li>差错报文<ul>
-<li>出于性能考虑，主机捕鱼路由器定时交换路由信息，主机会有一个默认路由配置。这个默认路由知道最佳路由地址，如果默认路由觉得自己不是最佳等，会告诉主机应该使用哪一个路由，这个时候主机就在路由表上加一项目。</li>
+<li>差错报文 （被动接收的）<ul>
+<li>终点不可达 路由器或者主机（以下统称主机）不能交付数据报（交付给某主机或者主机的某个端口）会发送</li>
+<li>源点抑制 主机网络阻塞就向源点发送，告知源点减慢速度</li>
+<li>时间超过 TTL等于0的时候</li>
+<li>参数错误 数据报首部参数不正确就发送</li>
+<li>改变路由（重定向）主机接受到数据报，但是认为有更好的路由选择，则会向源点发送该报文</li>
 </ul>
 </li>
-<li>询问报文<ul>
-<li>回送请求和回答：就是简单的回答，测试可达性</li>
+<li>询问报文 (主动请求的)<ul>
+<li>回送请求和回答：就是简单的回答，测试可达性.应用层的ping程序就是使用该方法</li>
 <li>时间戳请求和回答：进行时间同步和测量时间</li>
 </ul>
 </li>
@@ -318,7 +325,7 @@
 <p>BGP - 边界网关协议。为什么不同AS不使用上面两种协议？主要一下两个原因：</p>
 </blockquote>
 <ol>
-<li>因特网规模太大，是的AS之间路由选择非常困难<ul>
+<li>因特网规模太大，使得AS之间路由选择非常困难<ul>
 <li>在因特网主干网上使用OSPF性能低，并且AS对度量的尺度不一等。</li>
 </ul>
 </li>
@@ -328,38 +335,97 @@
 <h2 id="4-传输层"><a href="#4-传输层" class="headerlink" title="4 传输层"></a>4 传输层</h2><blockquote>
 <p>面向连接的TCP与无连接的UDP。网络层解决了数据如何从源主机到达目标主机，那么传输层则在网络层的基础上控制具体的传输策略。比如TCP可靠服务(对丢失/重复/失序进行处理)、流量控制、阻塞控制</p>
 </blockquote>
-<h3 id="4-1-TCP-传输控制协议"><a href="#4-1-TCP-传输控制协议" class="headerlink" title="4.1 TCP 传输控制协议"></a>4.1 TCP 传输控制协议</h3><ul>
+<h3 id="4-1-TCP-传输控制协议"><a href="#4-1-TCP-传输控制协议" class="headerlink" title="4.1 TCP 传输控制协议"></a>4.1 TCP 传输控制协议</h3><blockquote>
+<p>了解TCP的报文头，并且根据报文头来学习TCP协议是非常好的方法，能够更好的理解TCP报文头和TCP的功能。其实不管是哪一个协议也是如此的。</p>
+</blockquote>
+<ul>
 <li>面向连接。3次握手建立连接，4次握手断开连接。</li>
-<li>无差错、不丢失、不重复、并且按序到达</li>
+<li>无差错、不丢失、不重复、并且按序到达（超时重传，接收和发送窗口，阻塞控制）</li>
 <li>只能有两个端点，一对一</li>
 <li>全双工通信</li>
-<li>面向字节流。应用层交下来的的数据被看成字节流。不保证交付下来的数据大小与发送的一致。</li>
+<li>面向字节流。应用层交下来的的数据被看成字节流。应用交付下一层的数据大小是无限制的，就像是一个流水线一样。只要写入的数据装满缓冲区或者关闭写操作就发送一个报文段。</li>
 </ul>
-<p>其实最重要的是TCP如何实现可靠传输？</p>
-<ul>
+<h4 id="其实最重要的是TCP如何实现可靠传输？"><a href="#其实最重要的是TCP如何实现可靠传输？" class="headerlink" title="其实最重要的是TCP如何实现可靠传输？"></a>其实最重要的是TCP如何实现可靠传输？</h4><ul>
 <li>出现差错就丢弃</li>
-<li>每一个分组，接收方都需要回复ACK确认。否则发送方会一直发(当然等待一段往返时间RTT)。</li>
-<li>重复则丢弃，并且回复ACK，告述发送方不要再再发了</li>
+<li>每一个分组，接收方都需要回复<code>ACK</code>确认。否则发送方会一直发(当然等待一段往返时间RTT)。</li>
+<li>重复则丢弃，并且回复<code>ACK</code>，告述发送方不要再再发了</li>
 <li>按序到达。发送方会有发送窗口，会按顺序移动窗口进行发送。</li>
 </ul>
-<p>如何实现流量控制？</p>
-<ul>
+<h4 id="如何实现流量控制？"><a href="#如何实现流量控制？" class="headerlink" title="如何实现流量控制？"></a>如何实现流量控制？</h4><ul>
 <li>接收方有接收窗口，如果来不及接收和处理数据会告诉发送方缩小发送窗口，减缓速率，实现流量控制</li>
 </ul>
-<p>连接的3次握手：<br><img src="https://note.youdao.com/yws/api/personal/file/WEB635207aea7c536a6d27b076391658905?method=download&amp;shareKey=111432d0777b5a7c3eb1ef34ec1d9bd2" alt="image"></p>
+<h4 id="连接的3次握手："><a href="#连接的3次握手：" class="headerlink" title="连接的3次握手："></a>连接的3次握手：</h4><p><img src="https://note.youdao.com/yws/api/personal/file/WEB635207aea7c536a6d27b076391658905?method=download&amp;shareKey=111432d0777b5a7c3eb1ef34ec1d9bd2" alt="image"></p>
 <ul>
 <li>问：ACK=1是确认报文的意思，那么对哪一个报文进行确认？</li>
-<li>答：注意到seq和ack了吗。seq=x表示该报文的序列号x可以识别该报文。服务端回复中的ack=x+1，则表示目前x以及以前的都接受成功，可以发送x+1了！这就起到了针对某一个报文就行发送ACK确认。</li>
+<li>答：注意到<code>seq</code>和<code>ack</code>了吗。<code>seq=x</code>表示该报文的序列号<code>x</code>可以识别该报文。服务端回复中的<code>ack=x+1</code>，则表示目前<code>x</code>以及以前的都接受成功，可以发送<code>x+1</code>了！这就起到了针对某一个报文就行发送<code>ACK</code>确认。</li>
 </ul>
-<p>释放连接的4次握手：<br><img src="https://note.youdao.com/yws/api/personal/file/WEB534236ded6c5607034c0d34f103d2385?method=download&amp;shareKey=dc61d7a108c2c4897f87e74d20088b37" alt="image"></p>
+<h4 id="释放连接的4次握手："><a href="#释放连接的4次握手：" class="headerlink" title="释放连接的4次握手："></a>释放连接的4次握手：</h4><p><img src="https://note.youdao.com/yws/api/personal/file/WEB534236ded6c5607034c0d34f103d2385?method=download&amp;shareKey=dc61d7a108c2c4897f87e74d20088b37" alt="image"></p>
 <ul>
 <li>问：为什么连接需要3次，但是释放需要4次？</li>
-<li>答：因为在建立连接的时候服务端把ACK和SYN一起发送了，因为建立连接服务端已经准备好了。而在释放连接的时候；客户端申请释放的时候，服务端接收到申请，但是还没有准备好，比如最后一个分组的ACK还没有接收到，这个时候就先对客户端回复ACK；等到准备就绪才回复FIN。就这样多了一次握手。</li>
+<li>答：因为在建立连接的时候服务端把<code>ACK</code>和<code>SYN</code>一起发送了，因为建立连接服务端已经准备好了。而在释放连接的时候；客户端申请释放的时候，服务端接收到申请，但是还没有准备好，比如最后一个分组的ACK还没有接收到，这个时候就先对客户端回复ACK；等到准备就绪才回复FIN。就这样多了一次握手。</li>
 </ul>
+<h4 id="半关闭状态："><a href="#半关闭状态：" class="headerlink" title="半关闭状态："></a>半关闭状态：</h4><blockquote>
+<p><code>TCP</code>是半双工的。因此允许双方独立的关闭。如果一方结束发送数据给对方，那么可以告诉对方完成数据发送，但是仍然可以接收对方发来的数据，直到对方也结束数据发送以关闭连接。下图中系统调用<code>read</code>返回0的时候，就是对方要关闭连接的时候。</p>
+</blockquote>
+<p><img src="/tcp-half-close.png" alt="半关闭"></p>
+<h4 id="TCP状态转移-netstat命令"><a href="#TCP状态转移-netstat命令" class="headerlink" title="TCP状态转移 netstat命令"></a>TCP状态转移 netstat命令</h4><blockquote>
+<p><code>TCP</code>从建立到关闭，通讯双方的状态，具体如下图。值得注意的是，关闭连接可以分为主动关闭和被动关闭，这两个的状态转移是不一样的。被动的很好理解，主动的就稍微复杂些。比如<code>FIN_WAIT_1</code>(主动发送FIN之后)/<code>FIN_WAIT_2</code>(只是收到ACK)/<code>CLOSING</code>(发送了<code>FIN</code>还没收<code>ACK</code>后收到对方发的<code>FIN</code>，那就一起关闭吧)/<code>TIME_WAIT</code>(等待关闭，等待2个报文最大生存时间，看看对方是否接收到该给它的<code>ACK</code>,毕竟不能不辞而别)</p>
+</blockquote>
+<p><img src="/tcp-net-stat.png" alt="TCP状态转移"></p>
+<p><img src="/tcp-fin-stat.png" alt="TCP状态转移"></p>
+<p>主动关闭中必然会存在的状态有两个：<code>FIN_WAIT</code>/<code>TIME_WAIT</code>。并且从<code>FIN_WAIT</code>到<code>TIME_WAIT</code>必须接收到一个<code>ACK</code>和一个<code>FIN</code>，可以同时接收，也可以任意先后。因此会有3种可能:</p>
+<ul>
+<li><code>ACK</code>和<code>FIN</code>同时接收并且对此发确认<code>ACK</code>–&gt;TIME_WAIT</li>
+<li><code>ACK</code>先收到–&gt;FIN_WAIT_2(等待<code>FIN</code>后发<code>ACK</code>)–&gt;TIME_WAIT</li>
+<li><code>FIN</code>先到(这个时候几乎是双方同时要求关闭,对对方的<code>FIN</code>进行确认<code>ACK</code>)–&gt;CLOSING(等待对方对我方<code>FIN</code>的<code>ACK</code>)–&gt;TIME_WAIT</li>
+</ul>
+<p>TIME_WAIT的作用</p>
+<ul>
+<li>可靠地终止TCP连接</li>
+<li>保证迟来的TCP报文有足够时间被识别并且丢弃<ul>
+<li>一个TCP端口不能呗同事打开，TCP连接处于<code>TIME_WAIT</code>状态的时候，我们无法占用该端口并且重新打开连接。假设<code>TIME_WAIT</code>不存在，那么我们可以重新建立一个新的TCP连接(IP与端口一致)，那么新的连接可能会接收到原来连接的报文段，这明显是不正确的。</li>
+<li>为什么是2MSL报文最大生存时间？因为经过这段时间的迟到的报文会直接被路由器丢弃，可以安全的建立连接</li>
+<li>那能不能马上建立连接？客户端建立连接使用的是随机端口(能保证不是一样的端口)，因此可以马上见建立。对于服务端，可以通过socket选项SO_REUSEADDR来强制启动(当然后果你是需要知道的啦)</li>
+</ul>
+</li>
+</ul>
+<h4 id="复位报文"><a href="#复位报文" class="headerlink" title="复位报文"></a>复位报文</h4><blockquote>
+<p>啥是复位报文？TCP报文的报文头中有标记位，其中<code>RST</code>告诉对方要关闭或者重新连接。在某些特殊情况写会发送此报文。</p>
+</blockquote>
+<h5 id="1-访问不存在的端口"><a href="#1-访问不存在的端口" class="headerlink" title="1.访问不存在的端口"></a>1.访问不存在的端口</h5><blockquote>
+<p>其实如果端口还在背占用的时候,比如在TIME_WAIT状态的时候也是会发复位报文。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在一个终端中使用tcpdump抓包</span></span><br><span class="line"><span class="comment"># Flags [S] 说明是一个SYN同步报文，要求建立TCP连接</span></span><br><span class="line"><span class="comment"># Flags [R.] 说明是一个有RST复位报文，要求关闭连接，并且确认收到SYN报文。注意到win 0，这个说明不要回应这个复位报文</span></span><br><span class="line">&gt; sudo tcpdump -nt -i lo0 port 54321</span><br><span class="line">IP 127.0.0.1.49953 &gt; 127.0.0.1.54321: Flags [S], seq 1166333184, win 65535, options [mss 16344,nop,wscale 5,nop,nop,TS val 930108577 ecr 0,sackOK,eol], length 0</span><br><span class="line">IP 127.0.0.1.54321 &gt; 127.0.0.1.49953: Flags [R.], seq 0, ack 1166333185, win 0, length 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一个输入</span></span><br><span class="line">&gt; telnet 127.0.0.1 54321</span><br><span class="line">Trying 127.0.0.1...</span><br><span class="line">telnet: connect to address 127.0.0.1: Connection refused</span><br><span class="line">telnet: Unable to connect to remote host</span><br></pre></td></tr></table></figure>
+<h5 id="2-异常终止连接"><a href="#2-异常终止连接" class="headerlink" title="2.异常终止连接"></a>2.异常终止连接</h5><blockquote>
+<p>TCP提供了异常终止连接的方法。通过socket选项SO_LINGER来主动发送复位报文</p>
+</blockquote>
+<h5 id="3-处理半打开连接"><a href="#3-处理半打开连接" class="headerlink" title="3.处理半打开连接"></a>3.处理半打开连接</h5><blockquote>
+<p>就是通讯一方仍然持有连接，但是另一方已经断开了。比如服务器要重启，发送关闭连接报文，但是客户端由于网络原因(比如断网)接收不到报文，当服务器重启完毕和客户端重新连接上网络的时候，服务端已经是没有这个连接，但是客户端还是保持这个连接的。如果客户端给服务端发送数据，那么服务端就会给客户端发送复位报文</p>
+</blockquote>
+<h4 id="TCP交互数据流"><a href="#TCP交互数据流" class="headerlink" title="TCP交互数据流"></a>TCP交互数据流</h4><blockquote>
+<p>TCP报文段按照大小可以分为两种：交互数据和成块数据。交互数据是比较小的，包含较少字节，比如telnet和ssh。成块数据大小经常是TCP报文段最大长度。</p>
+</blockquote>
+<p>比如，客户端使用telnet访问服务端。在传递过程中的就是交互数据流。客户端发送的<code>ACK</code>是不包含数据的(马上对接收的报文段确认)；相反服务端的<code>ACK</code>报文段一般都会带有数据的，一方面可以确认客户端发来的报文段，另一方面可以就其请求做出响应返回数据。服务端这种处理是<code>延迟确认</code>；就是先不急着发送确认，而是等服务端是否有数据要发送，如果有带上一起发就好。这样的优点就是减少传输微小的报文段传输。那么客户端怎么不这么做？等了，但是等不到啊，因为telnet来访问的话，需要用户敲键盘啊，太慢了。</p>
+<h4 id="TCP成块数据流"><a href="#TCP成块数据流" class="headerlink" title="TCP成块数据流"></a>TCP成块数据流</h4><blockquote>
+<p>成块数据流，很好的例子就是使用<code>ftp</code>下载大文件。 </p>
+</blockquote>
+<p>请求过程很可能是：</p>
+<ul>
+<li>客户端请求下载文件</li>
+<li>服务端发送大报文段1</li>
+<li>服务端发送大报文段2</li>
+<li>服务端发送大报文段3</li>
+<li>服务端发送大报文段4</li>
+<li>客户端<code>ACK</code>确认接收报文段1到4</li>
+</ul>
+<p>这种情况，发送方连续发送多个报文段，接收方可以一次性进行确认。</p>
+<h4 id="带外数据"><a href="#带外数据" class="headerlink" title="带外数据"></a>带外数据</h4><blockquote>
+<p>带外(Out Of Band, OOB)数据。用于迅速告诉对方，本端发生的重要事件。因此会比普通数据(带内数据)的优先级要高，不放缓冲区，不排队，立即发送，立即读取。TCP中可以使用<code>紧急指针标志</code>来实现。</p>
+</blockquote>
 <h3 id="4-2-UDP-用户数据报协议"><a href="#4-2-UDP-用户数据报协议" class="headerlink" title="4.2 UDP 用户数据报协议"></a>4.2 UDP 用户数据报协议</h3><ul>
 <li>无连接</li>
 <li>尽大可能交付</li>
-<li>面向报文。应用层往下发的报文，直接加上首部就交给网络层，UDP一次性交付一个完整报文给网络层</li>
+<li>面向报文。应用层往下发的报文，直接加上首部就交给网络层，UDP一次性交付一个完整报文给网络层。应用给多大，我发送多大。具体分片由IP协议处理</li>
 <li>支持一对一，一对多，多对多</li>
 <li>没有阻塞控制。就是网络的阻塞不会导致主机发送速率降低。</li>
 </ul>
@@ -370,7 +436,7 @@
 <p>求是就是通过TCP连接，两台主机按照HTTP协议规定的文本格式进行互相通信。比如第一行是什么，第二行是什么等等。完全可以使用变成语言通过TCP连接来实现一个简单的HTTP请求。</p>
 </blockquote>
 <h3 id="5-2-DNS域名系统"><a href="#5-2-DNS域名系统" class="headerlink" title="5.2 DNS域名系统"></a>5.2 DNS域名系统</h3><blockquote>
-<p>使用UDP协议。就是域名得到对应的IP。比如通过浏览器请求某个网站：</p>
+<p>使用UDP协议。就是根据域名查询对应的IP。比如通过浏览器请求某个网站：</p>
 </blockquote>
 <ul>
 <li>首先是浏览器的DNS缓存</li>
@@ -378,9 +444,27 @@
 <li>系统的hosts</li>
 <li>请求DNS服务器</li>
 </ul>
+<h2 id="6-Linux或者Mac上的小应用"><a href="#6-Linux或者Mac上的小应用" class="headerlink" title="6 Linux或者Mac上的小应用"></a>6 Linux或者Mac上的小应用</h2><blockquote>
+<p>为了加深理解，这里推荐一些命令</p>
+</blockquote>
+<h3 id="6-1-查看ARP高速缓存"><a href="#6-1-查看ARP高速缓存" class="headerlink" title="6.1 查看ARP高速缓存"></a>6.1 查看ARP高速缓存</h3><blockquote>
+<p>用于查看和设置本地的ARP高速缓存的。比如想看ARP请求过程，这个时候就需要先删除缓存，重新请求一次啦。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除</span></span><br><span class="line">arp -d 192.168.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置</span></span><br><span class="line">arp -s IP地址 MAC地址</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line">arp -a</span><br></pre></td></tr></table></figure>
+<h3 id="6-2-tcpdump-查看ARP通讯过程"><a href="#6-2-tcpdump-查看ARP通讯过程" class="headerlink" title="6.2 tcpdump 查看ARP通讯过程"></a>6.2 tcpdump 查看ARP通讯过程</h3><blockquote>
+<p>tcpdump 是一个抓包命令。有了抓包，那怎么触发ARP请求呢？只要使用IP协议都能触达ARP。可以使用telnet简历TCP前就需要进行ARP请求；或者使用ping命令(不过要注意的是，ARP之后就会发ICMP报文)</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -i 指定 interface 网卡</span></span><br><span class="line">&gt; sudo tcpdump -i eth0</span><br><span class="line">11:22:18.656009 ARP, Request who-has 192.168.43.1 tell lizhichengdembp, length 28</span><br><span class="line">11:22:18.659657 ARP, Reply 192.168.43.1 is-at a6:44:d1:dd:ed:35 (oui Unknown), length 28</span><br><span class="line"></span><br><span class="line"><span class="comment"># 还可以使用表达式</span></span><br><span class="line">&gt; sudo tcpdump -i en0 <span class="string">'(dst 192.168.43.1 and src 192.168.43.184)or(dst 192.168.43.184 and src 192.168.43.1)'</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-2-Linux访问DNS服务"><a href="#6-2-Linux访问DNS服务" class="headerlink" title="6.2 Linux访问DNS服务"></a>6.2 Linux访问DNS服务</h3><h4 id="6-2-1-host-命令"><a href="#6-2-1-host-命令" class="headerlink" title="6.2.1 host 命令"></a>6.2.1 host 命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询 www.baidu.com 的A记录</span></span><br><span class="line">&gt; host -t A www.baidu.com</span><br></pre></td></tr></table></figure>
+<h4 id="6-2-2-tcpdump查看DNS通许过程"><a href="#6-2-2-tcpdump查看DNS通许过程" class="headerlink" title="6.2.2 tcpdump查看DNS通许过程"></a>6.2.2 tcpdump查看DNS通许过程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在一个终端输入</span></span><br><span class="line">&gt; sudo tcpdump -i en0 -nt -s 500 port domain</span><br><span class="line">IP 192.168.43.184.63356 &gt; 192.168.43.1.53: 48260+ A? www.baidu.com. (31)</span><br><span class="line">IP 192.168.43.1.53 &gt; 192.168.43.184.63356: 48260 3/5/5 CNAME www.a.shifen.com., A 183.232.231.173, A 183.232.231.172 (260)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在另一个终端中</span></span><br><span class="line">&gt; host -t A www.baidu.com</span><br><span class="line">www.baidu.com is an <span class="built_in">alias</span> <span class="keyword">for</span> www.a.shifen.com.</span><br><span class="line">www.a.shifen.com has address 183.232.231.173</span><br><span class="line">www.a.shifen.com has address 183.232.231.172</span><br></pre></td></tr></table></figure>
+<h3 id="6-3-查看报文二进制"><a href="#6-3-查看报文二进制" class="headerlink" title="6.3 查看报文二进制"></a>6.3 查看报文二进制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tcpdump的-x选项可以做到</span></span><br><span class="line">&gt; sudo tcpdump -ntx -i lo0</span><br><span class="line"></span><br><span class="line">然后使用 ping或者telnet本地</span><br></pre></td></tr></table></figure>
+<h3 id="6-4-IP分片与tcpdump只抓取ICMP"><a href="#6-4-IP分片与tcpdump只抓取ICMP" class="headerlink" title="6.4 IP分片与tcpdump只抓取ICMP"></a>6.4 IP分片与tcpdump只抓取ICMP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只抓取ICMP 注意offset偏移，第二个数据报的offset是第一个数据报的length；id是一样的；flags[+]说明后面还有后续分片，flags[none]表示后续买有其他分片了。这里的flag是ipv4报文头部中3位标志</span></span><br><span class="line">&gt; sudo tcpdump -ntv -i lo0 icmp</span><br><span class="line">IP (tos 0x0, ttl 64, id 65515, offset 0, flags [+], proto ICMP (1), length 1500)</span><br><span class="line">    192.168.43.184 &gt; 192.168.43.1: ICMP <span class="built_in">echo</span> request, id 14342, seq 0, length 1480</span><br><span class="line">IP (tos 0x0, ttl 64, id 65515, offset 1480, flags [none], proto ICMP (1), length 21)</span><br><span class="line">    192.168.43.184 &gt; 192.168.43.1: ip-proto-1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定长度 让其炒股单个IP数据报限制长度，使其分片</span></span><br><span class="line">&gt; ping 127.0.0.1 -s 1473 -c 1</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>本文属于个人读书笔记，不正确的欢迎指正。后续会根据理解的加深而继续完善</p>
 </blockquote>
+<h2 id="7-其他"><a href="#7-其他" class="headerlink" title="7. 其他"></a>7. 其他</h2><ul>
+<li>也许有人回想起<code>WebSocket</code>。这个与<code>socket</code>又有什么关系呢？<code>WebSocket</code>只是一个长的Http连接，一般用于聊天室</li>
+</ul>
 
       
 
