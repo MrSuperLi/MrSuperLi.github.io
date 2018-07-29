@@ -20,10 +20,10 @@
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB42f8a0dc0b1079432d3250805b276009?method=download&shareKey=7e6093228ebbc67be76cb05316865aba">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB635207aea7c536a6d27b076391658905?method=download&shareKey=111432d0777b5a7c3eb1ef34ec1d9bd2">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB534236ded6c5607034c0d34f103d2385?method=download&shareKey=dc61d7a108c2c4897f87e74d20088b37">
-<meta property="og:image" content="http://yoursite.com/tcp-half-close.png">
-<meta property="og:image" content="http://yoursite.com/tcp-net-stat.png">
-<meta property="og:image" content="http://yoursite.com/tcp-fin-stat.png">
-<meta property="og:updated_time" content="2018-07-08T13:20:55.001Z">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBf220431e4e638ee91c01087aa461fb11?method=download&shareKey=30be6c22fe227cafbb2731a56272c84f">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB0570903660490d5fe3b5f44f33287017?method=download&shareKey=44a1b49d090fdca8781a7163600011cd">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBc1d2dce5b4fc97d199733a83e8c3a82e?method=download&shareKey=1eb93582179668bce9c1fd40c58c7a39">
+<meta property="og:updated_time" content="2018-07-29T05:02:44.878Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络读书笔记">
 <meta name="twitter:description" content="应用层 对数据的具体应用 HTTP/DNS/FTP/NFS/SMTP/POP3/IMAP/SNMP等   表示层 对数据进行格式转换，加解密，解压缩等(没有协议)   会话层 会话管理，控制应用之间的通信，比如访问验证 (没有协议)   传输层 通信双方数据传输。TCP面向连接可靠/顺序/流量控制/全双工/多路复用;UDP非面向连接不可靠，但传输经济   网络层 路由选择合适的链路。IP/OSP">
@@ -367,12 +367,12 @@
 <h4 id="半关闭状态："><a href="#半关闭状态：" class="headerlink" title="半关闭状态："></a>半关闭状态：</h4><blockquote>
 <p><code>TCP</code>是半双工的。因此允许双方独立的关闭。如果一方结束发送数据给对方，那么可以告诉对方完成数据发送，但是仍然可以接收对方发来的数据，直到对方也结束数据发送以关闭连接。下图中系统调用<code>read</code>返回0的时候，就是对方要关闭连接的时候。</p>
 </blockquote>
-<p><img src="/tcp-half-close.png" alt="半关闭"></p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBf220431e4e638ee91c01087aa461fb11?method=download&amp;shareKey=30be6c22fe227cafbb2731a56272c84f" alt="半关闭"></p>
 <h4 id="TCP状态转移-netstat命令"><a href="#TCP状态转移-netstat命令" class="headerlink" title="TCP状态转移 netstat命令"></a>TCP状态转移 netstat命令</h4><blockquote>
 <p><code>TCP</code>从建立到关闭，通讯双方的状态，具体如下图。值得注意的是，关闭连接可以分为主动关闭和被动关闭，这两个的状态转移是不一样的。被动的很好理解，主动的就稍微复杂些。比如<code>FIN_WAIT_1</code>(主动发送FIN之后)/<code>FIN_WAIT_2</code>(只是收到ACK)/<code>CLOSING</code>(发送了<code>FIN</code>还没收<code>ACK</code>后收到对方发的<code>FIN</code>，那就一起关闭吧)/<code>TIME_WAIT</code>(等待关闭，等待2个报文最大生存时间，看看对方是否接收到该给它的<code>ACK</code>,毕竟不能不辞而别)</p>
 </blockquote>
-<p><img src="/tcp-net-stat.png" alt="TCP状态转移"></p>
-<p><img src="/tcp-fin-stat.png" alt="TCP状态转移"></p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB0570903660490d5fe3b5f44f33287017?method=download&amp;shareKey=44a1b49d090fdca8781a7163600011cd" alt="TCP状态转移"></p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBc1d2dce5b4fc97d199733a83e8c3a82e?method=download&amp;shareKey=1eb93582179668bce9c1fd40c58c7a39" alt="TCP状态转移"></p>
 <p>主动关闭中必然会存在的状态有两个：<code>FIN_WAIT</code>/<code>TIME_WAIT</code>。并且从<code>FIN_WAIT</code>到<code>TIME_WAIT</code>必须接收到一个<code>ACK</code>和一个<code>FIN</code>，可以同时接收，也可以任意先后。因此会有3种可能:</p>
 <ul>
 <li><code>ACK</code>和<code>FIN</code>同时接收并且对此发确认<code>ACK</code>–&gt;TIME_WAIT</li>
